@@ -6,10 +6,7 @@ const products = [
         description: 'Durable protection with style',
         price: 29.99,
         image: `
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect x="25" y="10" width="50" height="80" rx="5" 
-                    style="fill:#8B5CF6; opacity:0.3"/>
-            </svg>
+            <div class="product-placeholder"></div>
         `
     },
     {
@@ -18,10 +15,7 @@ const products = [
         description: 'Fast charging technology',
         price: 39.99,
         image: `
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="30" 
-                    style="fill:#8B5CF6; opacity:0.3"/>
-            </svg>
+            <div class="product-placeholder"></div>
         `
     },
     {
@@ -30,92 +24,100 @@ const products = [
         description: 'Crystal clear protection',
         price: 19.99,
         image: `
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect x="25" y="20" width="50" height="60" 
-                    style="fill:#8B5CF6; opacity:0.3"/>
-            </svg>
+            <div class="product-placeholder"></div>
         `
     }
 ];
 
-// App State
-let cart = [];
+// State Management
+let state = {
+    cart: [],
+    cartVisible: false,
+    loadingStates: new Set()
+};
 
-// Initialize app when DOM is loaded
+// Initialize App
 document.addEventListener('DOMContentLoaded', () => {
-    initializeProducts();
+    renderProducts();
     setupEventListeners();
 });
 
-// Initialize product displays
-function initializeProducts() {
-    const productContainer = document.querySelector('.products-grid');
-    if (productContainer) {
-        productContainer.innerHTML = products.map(product => `
-            <div class="product-card">
-                <div class="product-image">
-                    ${product.image}
-                </div>
-                <h3>${product.name}</h3>
-                <p>${product.description}</p>
-                <div class="product-price">$${product.price}</div>
-                <button class="add-to-cart" data-product-id="${product.id}">
-                    Add to Cart
-                </button>
-            </div>
-        `).join('');
+// Close Application
+function closeApp() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        window.location.href = "about:blank";
+        window.close();
     }
 }
 
 // Setup Event Listeners
 function setupEventListeners() {
     // Close Button
-    const closeButton = document.querySelector('.close-button');
+    const closeButton = document.querySelector('.close-btn');
     if (closeButton) {
-        closeButton.addEventListener('click', handleClose);
+        closeButton.addEventListener('click', closeApp);
     }
-
-    // Add to Cart Buttons
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', handleAddToCart);
-    });
 
     // Newsletter Form
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', handleNewsletterSubmit);
     }
+
+    // Explore Collection Button
+    const exploreButton = document.querySelector('.primary-btn');
+    if (exploreButton) {
+        exploreButton.addEventListener('click', () => {
+            document.querySelector('.products').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 }
 
-// Handle Close Button Click
-function handleClose() {
-    window.history.back();
+// Render Products
+function renderProducts() {
+    const productGrid = document.getElementById('productGrid');
+    if (!productGrid) return;
+
+    productGrid.innerHTML = products.map(product => `
+        <div class="product-card">
+            ${product.image}
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <div class="product-price">$${product.price}</div>
+            <button 
+                class="add-to-cart-btn"
+                onclick="handleAddToCart(${product.id})"
+                data-product-id="${product.id}"
+            >
+                Add to Cart
+            </button>
+        </div>
+    `).join('');
 }
 
 // Handle Add to Cart
-function handleAddToCart(e) {
-    const button = e.currentTarget;
-    
+function handleAddToCart(productId) {
+    const button = document.querySelector(`[data-product-id="${productId}"]`);
+    if (!button || state.loadingStates.has(productId)) return;
+
     // Add loading state
+    state.loadingStates.add(productId);
     button.textContent = 'Adding...';
     button.disabled = true;
-    
-    // Simulate API delay
+
+    // Simulate API call
     setTimeout(() => {
-        const productId = button.dataset.productId;
-        const product = products.find(p => p.id === parseInt(productId));
+        // Update button state
+        button.textContent = '✓ Added';
         
-        if (product) {
-            cart.push(product);
-            button.textContent = 'Added to Cart';
-            
-            // Reset button after delay
-            setTimeout(() => {
-                button.textContent = 'Add to Cart';
-                button.disabled = false;
-            }, 1000);
-        }
+        // Reset button after delay
+        setTimeout(() => {
+            button.textContent = 'Add to Cart';
+            button.disabled = false;
+            state.loadingStates.delete(productId);
+        }, 2000);
     }, 500);
 }
 
@@ -127,37 +129,23 @@ function handleNewsletterSubmit(e) {
     const emailInput = form.querySelector('input[type="email"]');
     const submitButton = form.querySelector('button');
     
-    if (emailInput && submitButton) {
-        // Add loading state
-        submitButton.textContent = 'Subscribing...';
-        submitButton.disabled = true;
-        emailInput.disabled = true;
-        
-        // Simulate API delay
-        setTimeout(() => {
-            emailInput.value = '';
-            submitButton.textContent = 'Subscribed!';
-            
-            // Reset form after delay
-            setTimeout(() => {
-                submitButton.textContent = 'Subscribe';
-                submitButton.disabled = false;
-                emailInput.disabled = false;
-            }, 1000);
-        }, 500);
-    }
-}
+    if (!emailInput || !submitButton || submitButton.disabled) return;
 
-// Add smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+    // Add loading state
+    submitButton.textContent = 'Subscribing...';
+    submitButton.disabled = true;
+    emailInput.disabled = true;
+
+    // Simulate API call
+    setTimeout(() => {
+        emailInput.value = '';
+        submitButton.textContent = 'Subscribed!';
+        
+        // Reset form after delay
+        setTimeout(() => {
+            submitButton.textContent = 'Subscribe';
+            submitButton.disabled = false;
+            emailInput.disabled = false;
+        }, 2000);
+    }, 500);
+}

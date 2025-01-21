@@ -7,70 +7,75 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <div class="brand">TechStyle</div>
-            <button class="close-button">×</button>
-        </nav>
-    </header>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="brand">TechStyle</div>
+        <button class="close-btn" onclick="closeApp()">×</button>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cart</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cartItems" class="cart-items"></div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Payment</h2>
+                <button class="close-btn" onclick="togglePayment()">×</button>
+            </div>
+            <form id="paymentForm" class="payment-form" onsubmit="processPayment(event)">
+                <input type="text" placeholder="Card Number" required>
+                <div class="card-details">
+                    <input type="text" placeholder="MM/YY" required>
+                    <input type="text" placeholder="CVV" required>
+                </div>
+                <input type="text" placeholder="Card Holder Name" required>
+                <button type="submit" class="payment-btn">Pay Now</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Elevate Your Mobile Experience</h1>
-            <p>Premium accessories for your smartphone. Style meets functionality with our curated collection of modern tech essentials.</p>
-            <button class="cta-button">Explore Collection</button>
-        </div>
+        <h1>Elevate Your Mobile Experience</h1>
+        <p>Premium accessories for your smartphone. Style meets functionality with our curated collection of modern tech essentials.</p>
+        <button class="primary-btn">Explore Collection</button>
     </section>
 
     <!-- Products Section -->
     <section class="products">
         <h2>Featured Products</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Premium Phone Case</h3>
-                <p>Durable protection with style</p>
-                <div class="product-price">$29.99</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Wireless Charger</h3>
-                <p>Fast charging technology</p>
-                <div class="product-price">$39.99</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Screen Protector</h3>
-                <p>Crystal clear protection</p>
-                <div class="product-price">$19.99</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-        </div>
+        <div class="product-grid" id="productGrid"></div>
     </section>
 
     <!-- Features Section -->
     <section class="features">
         <h2>Why Choose Us</h2>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-item">
                 <div class="feature-icon">✨</div>
                 <h3>Premium Quality</h3>
                 <p>We source only the highest quality materials for our products</p>
             </div>
-
-            <div class="feature-card">
+            <div class="feature-item">
                 <div class="feature-icon">🚚</div>
                 <h3>Fast Shipping</h3>
                 <p>Free express shipping on all orders over $50</p>
             </div>
-
-            <div class="feature-card">
+            <div class="feature-item">
                 <div class="feature-icon">💬</div>
                 <h3>24/7 Support</h3>
                 <p>Our customer support team is always here to help</p>
@@ -82,14 +87,14 @@
     <section class="newsletter">
         <h2>Stay Updated</h2>
         <p>Join our community and be the first to know about new products, exclusive offers, and tech tips.</p>
-        <form class="newsletter-form">
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
             <input type="email" placeholder="Enter your email" required>
-            <button type="submit">Subscribe</button>
+            <button type="submit" class="subscribe-btn">Subscribe</button>
         </form>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <p>© 2025 TechStyle. All rights reserved.</p>
     </footer>
 
