@@ -1,125 +1,163 @@
-// Product SVG Images
-const productImages = {
-    phoneCase: `
-        <svg viewBox="0 0 200 200">
-            <defs>
-                <linearGradient id="caseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.8"/>
-                    <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:0.8"/>
-                </linearGradient>
-            </defs>
-            <rect x="40" y="20" width="120" height="160" rx="15" fill="url(#caseGradient)"/>
-            <rect x="45" y="25" width="110" height="150" rx="12" fill="#FFFFFF" opacity="0.1"/>
-        </svg>
-    `,
-    wirelessCharger: `
-        <svg viewBox="0 0 200 200">
-            <defs>
-                <radialGradient id="chargerGradient">
-                    <stop offset="0%" style="stop-color:#8B5CF6"/>
-                    <stop offset="100%" style="stop-color:#6366F1"/>
-                </radialGradient>
-            </defs>
-            <circle cx="100" cy="100" r="60" fill="url(#chargerGradient)"/>
-            <circle cx="100" cy="100" r="40" fill="#FFFFFF" opacity="0.1"/>
-        </svg>
-    `,
-    screenProtector: `
-        <svg viewBox="0 0 200 200">
-            <defs>
-                <linearGradient id="protectorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#6366F1;stop-opacity:0.6"/>
-                    <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:0.6"/>
-                </linearGradient>
-            </defs>
-            <rect x="50" y="40" width="100" height="120" rx="5" fill="url(#protectorGradient)"/>
-            <rect x="55" y="45" width="90" height="110" rx="3" fill="#FFFFFF" opacity="0.1"/>
-        </svg>
-    `
-};
+// Product Data
+const products = [
+    {
+        id: 1,
+        name: 'Premium Phone Case',
+        description: 'Durable protection with style',
+        price: 29.99,
+        image: `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="25" y="10" width="50" height="80" rx="5" 
+                    style="fill:#8B5CF6; opacity:0.3"/>
+            </svg>
+        `
+    },
+    {
+        id: 2,
+        name: 'Wireless Charger',
+        description: 'Fast charging technology',
+        price: 39.99,
+        image: `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="30" 
+                    style="fill:#8B5CF6; opacity:0.3"/>
+            </svg>
+        `
+    },
+    {
+        id: 3,
+        name: 'Screen Protector',
+        description: 'Crystal clear protection',
+        price: 19.99,
+        image: `
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="25" y="20" width="50" height="60" 
+                    style="fill:#8B5CF6; opacity:0.3"/>
+            </svg>
+        `
+    }
+];
 
-// Initialize the app
+// App State
+let cart = [];
+
+// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    initializeProductImages();
+    initializeProducts();
     setupEventListeners();
 });
 
-// Add SVG images to product cards
-function initializeProductImages() {
-    const productImages = document.querySelectorAll('.product-image');
-    productImages[0].innerHTML = productImages.phoneCase;
-    productImages[1].innerHTML = productImages.wirelessCharger;
-    productImages[2].innerHTML = productImages.screenProtector;
+// Initialize product displays
+function initializeProducts() {
+    const productContainer = document.querySelector('.products-grid');
+    if (productContainer) {
+        productContainer.innerHTML = products.map(product => `
+            <div class="product-card">
+                <div class="product-image">
+                    ${product.image}
+                </div>
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <div class="product-price">$${product.price}</div>
+                <button class="add-to-cart" data-product-id="${product.id}">
+                    Add to Cart
+                </button>
+            </div>
+        `).join('');
+    }
 }
 
-// Setup event listeners
+// Setup Event Listeners
 function setupEventListeners() {
-    // Add to cart buttons
+    // Close Button
+    const closeButton = document.querySelector('.close-button');
+    if (closeButton) {
+        closeButton.addEventListener('click', handleClose);
+    }
+
+    // Add to Cart Buttons
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', handleAddToCart);
     });
 
-    // Newsletter form
+    // Newsletter Form
     const newsletterForm = document.querySelector('.newsletter-form');
-    newsletterForm.addEventListener('submit', handleNewsletterSubmit);
-
-    // Close button
-    const closeButton = document.querySelector('.close-button');
-    closeButton.addEventListener('click', () => {
-        window.history.back();
-    });
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterSubmit);
+    }
 }
 
-// Handle add to cart
+// Handle Close Button Click
+function handleClose() {
+    window.history.back();
+}
+
+// Handle Add to Cart
 function handleAddToCart(e) {
     const button = e.currentTarget;
-    const originalText = button.textContent;
     
-    // Show loading state
+    // Add loading state
     button.textContent = 'Adding...';
     button.disabled = true;
     
-    // Simulate API call
+    // Simulate API delay
     setTimeout(() => {
-        button.textContent = '✓ Added';
+        const productId = button.dataset.productId;
+        const product = products.find(p => p.id === parseInt(productId));
         
-        // Reset button after 2 seconds
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.disabled = false;
-        }, 2000);
-    }, 1000);
+        if (product) {
+            cart.push(product);
+            button.textContent = 'Added to Cart';
+            
+            // Reset button after delay
+            setTimeout(() => {
+                button.textContent = 'Add to Cart';
+                button.disabled = false;
+            }, 1000);
+        }
+    }, 500);
 }
 
-// Handle newsletter submit
+// Handle Newsletter Submit
 function handleNewsletterSubmit(e) {
     e.preventDefault();
+    
     const form = e.currentTarget;
-    const input = form.querySelector('input');
-    const button = form.querySelector('button');
-    const originalText = button.textContent;
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitButton = form.querySelector('button');
     
-    // Show loading state
-    button.textContent = 'Subscribing...';
-    button.disabled = true;
-    input.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        button.textContent = '✓ Subscribed';
-        input.value = '';
+    if (emailInput && submitButton) {
+        // Add loading state
+        submitButton.textContent = 'Subscribing...';
+        submitButton.disabled = true;
+        emailInput.disabled = true;
         
-        // Reset form after 2 seconds
+        // Simulate API delay
         setTimeout(() => {
-            button.textContent = originalText;
-            button.disabled = false;
-            input.disabled = false;
-        }, 2000);
-    }, 1000);
+            emailInput.value = '';
+            submitButton.textContent = 'Subscribed!';
+            
+            // Reset form after delay
+            setTimeout(() => {
+                submitButton.textContent = 'Subscribe';
+                submitButton.disabled = false;
+                emailInput.disabled = false;
+            }, 1000);
+        }, 500);
+    }
 }
 
-// Helper function to show loading state
-function showLoading(element) {
-    element.classList.add('loading');
-}
+// Add smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
