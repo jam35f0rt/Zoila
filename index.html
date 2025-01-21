@@ -5,21 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUXE TECH - Premium Smartphone Accessories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap');
+
         :root {
-            --primary: #1a1a1a;
-            --secondary: #gold;
-            --accent: #D4AF37;
-            --text: #333;
+            --primary: #000000;
+            --secondary: #1d1d1f;
+            --accent: #0066CC;
+            --accent-light: #0071e3;
+            --text: #1d1d1f;
+            --text-light: #86868b;
             --background: #ffffff;
-            --gray: #f5f5f5;
+            --gray: #fbfbfd;
+            --border: #d2d2d7;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
         }
 
         body {
@@ -30,8 +45,8 @@
 
         /* Navigation */
         nav {
-            background: var(--primary);
-            padding: 1rem 5%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0 8%;
             position: fixed;
             width: 100%;
             top: 0;
@@ -39,45 +54,68 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: saturate(180%) blur(20px);
+            height: 44px;
         }
 
         .logo {
-            color: var(--accent);
-            font-size: 1.5rem;
-            font-weight: bold;
+            color: var(--background);
+            font-size: 1.3rem;
+            font-weight: 500;
             text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 1;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
+            align-items: center;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--background);
             text-decoration: none;
-            transition: color 0.3s;
+            font-size: 0.85rem;
+            font-weight: 400;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            opacity: 1;
         }
 
         .cart-icon {
             position: relative;
-            color: white;
+            color: var(--background);
             cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .cart-icon:hover {
+            opacity: 1;
         }
 
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
+            top: -5px;
+            right: -5px;
             background: var(--accent);
             color: white;
             border-radius: 50%;
-            padding: 0.2rem 0.5rem;
-            font-size: 0.8rem;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         /* Hero Section */
@@ -86,37 +124,53 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            color: white;
+            background: var(--gray);
+            color: var(--text);
             text-align: center;
-            padding-top: 80px;
+            padding-top: 44px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-content h1 {
-            font-size: 3.5rem;
+            font-size: 56px;
+            line-height: 1.07143;
+            font-weight: 600;
+            letter-spacing: -0.005em;
             margin-bottom: 1rem;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+            font-size: 28px;
+            line-height: 1.10722;
+            font-weight: 400;
+            letter-spacing: .004em;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
         }
 
         .cta-button {
             background: var(--accent);
             color: white;
-            padding: 1rem 2rem;
+            padding: 8px 16px;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            letter-spacing: -0.022em;
+            min-width: 140px;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
+            background: var(--accent-light);
         }
 
         /* Products Section */
