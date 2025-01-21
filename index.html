@@ -3,101 +3,474 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStyle</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>LUXE TECH - Premium Smartphone Accessories</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #gold;
+            --accent: #D4AF37;
+            --text: #333;
+            --background: #ffffff;
+            --gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .cart-icon {
+            position: relative;
+            color: white;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 5rem 5%;
+            display: none;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: var(--accent);
+        }
+
+        /* Cart Section */
+        .cart {
+            padding: 5rem 5%;
+            display: none;
+        }
+
+        .cart-items {
+            margin-top: 2rem;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .cart-total {
+            text-align: right;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Payment Section */
+        .payment {
+            padding: 5rem 5%;
+            display: none;
+        }
+
+        .payment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Active Section Management */
+        .section {
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: none;
+        }
+
+        .section.active {
+            opacity: 1;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="brand">TechStyle</div>
-        <button class="close-btn" onclick="closeApp()">×</button>
-    </div>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Cart</h2>
-                <button class="close-btn" onclick="toggleCart()">×</button>
-            </div>
-            <div id="cartItems" class="cart-items"></div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    <nav>
+        <a href="#" class="logo">LUXE TECH</a>
+        <div class="nav-links">
+            <a href="#" data-section="hero">Home</a>
+            <a href="#" data-section="products">Products</a>
+            <a href="#" data-section="cart" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
         </div>
-    </div>
+    </nav>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Payment</h2>
-                <button class="close-btn" onclick="togglePayment()">×</button>
-            </div>
-            <form id="paymentForm" class="payment-form" onsubmit="processPayment(event)">
-                <input type="text" placeholder="Card Number" required>
-                <div class="card-details">
-                    <input type="text" placeholder="MM/YY" required>
-                    <input type="text" placeholder="CVV" required>
+    <section class="hero section active" id="hero">
+        <div class="hero-content">
+            <h1>Elevate Your Device</h1>
+            <p>Discover our collection of premium smartphone accessories</p>
+            <button class="cta-button" data-section="products">Shop Now</button>
+        </div>
+    </section>
+
+    <section class="products section" id="products">
+        <h2>Our Premium Collection</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="Premium Leather Case" class="product-image"/>
+                <div class="product-info">
+                    <h3>Premium Leather Case</h3>
+                    <p>Handcrafted genuine leather case with gold accents</p>
+                    <div class="product-price">$129.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
                 </div>
-                <input type="text" placeholder="Card Holder Name" required>
-                <button type="submit" class="payment-btn">Pay Now</button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="Wireless Power Bank" class="product-image"/>
+                <div class="product-info">
+                    <h3>Wireless Power Bank</h3>
+                    <p>10,000mAh luxury wireless charger with LED display</p>
+                    <div class="product-price">$199.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="Aluminum Stand" class="product-image"/>
+                <div class="product-info">
+                    <h3>Aluminum Stand</h3>
+                    <p>Premium aluminum phone stand with wireless charging</p>
+                    <div class="product-price">$89.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="Crystal Clear Screen Protector" class="product-image"/>
+                <div class="product-info">
+                    <h3>Crystal Screen Guard</h3>
+                    <p>Ultra-clear tempered glass with anti-glare coating</p>
+                    <div class="product-price">$49.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="Premium AirPods Case" class="product-image"/>
+                <div class="product-info">
+                    <h3>Leather AirPods Case</h3>
+                    <p>Genuine leather case with metallic finish</p>
+                    <div class="product-price">$79.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <img src="/api/placeholder/800/800" alt="MagSafe Charger" class="product-image"/>
+                <div class="product-info">
+                    <h3>Premium MagSafe Charger</h3>
+                    <p>15W fast wireless charging with premium finish</p>
+                    <div class="product-price">$159.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cart section" id="cart">
+        <h2>Your Cart</h2>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            Total: $0.00
+            <button class="cta-button" data-section="payment">Proceed to Payment</button>
+        </div>
+    </section>
+
+    <section class="payment section" id="payment">
+        <div class="payment-form">
+            <h2>Payment Details</h2>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="card-name">Name on Card</label>
+                    <input type="text" id="card-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Expiry Date</label>
+                    <input type="text" id="expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" required>
+                </div>
+                <button type="submit" class="cta-button">Complete Purchase</button>
             </form>
         </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Elevate Your Mobile Experience</h1>
-        <p>Premium accessories for your smartphone. Style meets functionality with our curated collection of modern tech essentials.</p>
-        <button class="primary-btn">Explore Collection</button>
     </section>
 
-    <!-- Products Section -->
-    <section class="products">
-        <h2>Featured Products</h2>
-        <div class="product-grid" id="productGrid"></div>
-    </section>
+    <script>
+        // Cart management
+        let cart = [];
+        let currentSection = 'hero';
 
-    <!-- Features Section -->
-    <section class="features">
-        <h2>Why Choose Us</h2>
-        <div class="features-grid">
-            <div class="feature-item">
-                <div class="feature-icon">✨</div>
-                <h3>Premium Quality</h3>
-                <p>We source only the highest quality materials for our products</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">🚚</div>
-                <h3>Fast Shipping</h3>
-                <p>Free express shipping on all orders over $50</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">💬</div>
-                <h3>24/7 Support</h3>
-                <p>Our customer support team is always here to help</p>
-            </div>
-        </div>
-    </section>
+        // Navigation
+        document.querySelectorAll('[data-section]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = button.dataset.section;
+                showSection(section);
+            });
+        });
 
-    <!-- Newsletter Section -->
-    <section class="newsletter">
-        <h2>Stay Updated</h2>
-        <p>Join our community and be the first to know about new products, exclusive offers, and tech tips.</p>
-        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-            <input type="email" placeholder="Enter your email" required>
-            <button type="submit" class="subscribe-btn">Subscribe</button>
-        </form>
-    </section>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+        }
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 TechStyle. All rights reserved.</p>
-    </footer>
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card');
+                const product = {
+                    name: card.querySelector('h3').textContent,
+                    price: parseFloat(card.querySelector('.product-price').textContent.replace('$', '')),
+                    image: card.querySelector('.product-image').outerHTML
+                };
+                
+                cart.push(product);
+                updateCart();
+                
+                // Show animation
+                button.textContent = 'Added!';
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                }, 1000);
+            });
+        });
 
-    <script src="script.js"></script>
+        function updateCart() {
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = cart.length;
+
+            const cartItems = document.querySelector('.cart-items');
+            cartItems.innerHTML = '';
+
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    ${item.image}
+                    <div>
+                        <h3>${item.name}</h3>
+                        <p>$${item.price.toFixed(2)}</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="remove-item">Remove</button>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+
+            document.querySelector('.cart-total').innerHTML = `
+                Total: $${total.toFixed(2)}
+                <button class="cta-button" data-section="payment">Proceed to Payment</button>
+            `;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Payment form handling
+        document.getElementById('payment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your purchase! This is a demo website.');
+            cart = [];
+            updateCart();
+            showSection('hero');
+        });
+    </script>
 </body>
 </html>
