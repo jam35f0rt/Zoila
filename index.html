@@ -3,528 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXE TECH - Premium Smartphone Accessories</title>
+    <title>TechAccessories - Premium Smartphone Accessories</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600&display=swap');
-
-        :root {
-            --primary: #000000;
-            --secondary: #1d1d1f;
-            --accent: #0066CC;
-            --accent-light: #0071e3;
-            --text: #1d1d1f;
-            --text-light: #86868b;
-            --background: #ffffff;
-            --gray: #fbfbfd;
-            --border: #d2d2d7;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-        }
-
-        body {
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 0 8%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: saturate(180%) blur(20px);
-            height: 44px;
-        }
-
-        .logo {
-            color: var(--background);
-            font-size: 1.3rem;
-            font-weight: 500;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .logo:hover {
-            opacity: 1;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--background);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 400;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-        }
-
-        .cart-icon {
-            position: relative;
-            color: var(--background);
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .cart-icon:hover {
-            opacity: 1;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gray);
-            color: var(--text);
-            text-align: center;
-            padding-top: 44px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            padding: 0 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-content h1 {
-            font-size: 56px;
-            line-height: 1.07143;
-            font-weight: 600;
-            letter-spacing: -0.005em;
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 28px;
-            line-height: 1.10722;
-            font-weight: 400;
-            letter-spacing: .004em;
-            margin-bottom: 2.5rem;
-            color: var(--text-light);
-        }
-
-        .cta-button {
-            background: var(--accent);
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 980px;
-            font-size: 17px;
-            font-weight: 400;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: -0.022em;
-            min-width: 140px;
-        }
-
-        .cta-button:hover {
-            background: var(--accent-light);
-        }
-
-        /* Products Section */
-        .products {
-            padding: 5rem 5%;
-            display: none;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-price {
-            color: var(--accent);
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .add-to-cart {
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s;
-        }
-
-        .add-to-cart:hover {
-            background: var(--accent);
-        }
-
-        /* Cart Section */
-        .cart {
-            padding: 5rem 5%;
-            display: none;
-        }
-
-        .cart-items {
-            margin-top: 2rem;
-        }
-
-        .cart-item {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 1rem;
-            align-items: center;
-            padding: 1rem;
-            background: white;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-        }
-
-        .cart-item img {
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        .cart-total {
-            text-align: right;
-            margin-top: 2rem;
-            font-size: 1.2rem;
-        }
-
-        /* Payment Section */
-        .payment {
-            padding: 5rem 5%;
-            display: none;
-        }
-
-        .payment-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        /* Active Section Management */
-        .section {
-            opacity: 0;
-            transition: opacity 0.3s;
-            display: none;
-        }
-
-        .section.active {
-            opacity: 1;
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">LUXE TECH</a>
-        <div class="nav-links">
-            <a href="#" data-section="hero">Home</a>
-            <a href="#" data-section="products">Products</a>
-            <a href="#" data-section="cart" class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
-            </a>
+        <div class="nav-content">
+            <div class="logo">TechAccessories</div>
+            <button class="menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#about">About</a>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <section class="hero section active" id="hero">
+<!-- Hero Section -->
+    <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Elevate Your Device</h1>
-            <p>Discover our collection of premium smartphone accessories</p>
-            <button class="cta-button" data-section="products">Shop Now</button>
+            <h1 class="animate-slide-up">Premium Smartphone Accessories</h1>
+            <p class="animate-slide-up delay-1">Enhance your mobile experience with our curated collection</p>
+            <div class="hero-buttons animate-slide-up delay-2">
+                <a href="#products" class="cta-button">Shop Now</a>
+                <a href="#featured" class="secondary-button">View Featured</a>
+            </div>
         </div>
-    </section>
-
-    <section class="products section" id="products">
-        <h2>Our Premium Collection</h2>
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="Premium Leather Case" class="product-image"/>
-                <div class="product-info">
-                    <h3>Premium Leather Case</h3>
-                    <p>Handcrafted genuine leather case with gold accents</p>
-                    <div class="product-price">$129.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
+        <div class="hero-images animate-fade-in">
+            <div class="floating-image">
+                <img src="/api/placeholder/300/600" alt="Phone Case" class="hero-image-1">
             </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="Wireless Power Bank" class="product-image"/>
-                <div class="product-info">
-                    <h3>Wireless Power Bank</h3>
-                    <p>10,000mAh luxury wireless charger with LED display</p>
-                    <div class="product-price">$199.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="Aluminum Stand" class="product-image"/>
-                <div class="product-info">
-                    <h3>Aluminum Stand</h3>
-                    <p>Premium aluminum phone stand with wireless charging</p>
-                    <div class="product-price">$89.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="Crystal Clear Screen Protector" class="product-image"/>
-                <div class="product-info">
-                    <h3>Crystal Screen Guard</h3>
-                    <p>Ultra-clear tempered glass with anti-glare coating</p>
-                    <div class="product-price">$49.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="Premium AirPods Case" class="product-image"/>
-                <div class="product-info">
-                    <h3>Leather AirPods Case</h3>
-                    <p>Genuine leather case with metallic finish</p>
-                    <div class="product-price">$79.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <img src="/api/placeholder/800/800" alt="MagSafe Charger" class="product-image"/>
-                <div class="product-info">
-                    <h3>Premium MagSafe Charger</h3>
-                    <p>15W fast wireless charging with premium finish</p>
-                    <div class="product-price">$159.99</div>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
+            <div class="floating-image delay-1">
+                <img src="/api/placeholder/300/600" alt="Wireless Charger" class="hero-image-2">
             </div>
         </div>
     </section>
 
-    <section class="cart section" id="cart">
-        <h2>Your Cart</h2>
-        <div class="cart-items">
-            <!-- Cart items will be dynamically added here -->
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card animate-slide-up">
+            <i class="fas fa-shipping-fast"></i>
+            <h3>Fast Shipping</h3>
+            <p>Free delivery on orders over $50</p>
         </div>
-        <div class="cart-total">
-            Total: $0.00
-            <button class="cta-button" data-section="payment">Proceed to Payment</button>
+        <div class="feature-card animate-slide-up delay-1">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Quality Guarantee</h3>
+            <p>30-day money-back guarantee</p>
+        </div>
+        <div class="feature-card animate-slide-up delay-2">
+            <i class="fas fa-headset"></i>
+            <h3>24/7 Support</h3>
+            <p>Expert assistance anytime</p>
         </div>
     </section>
 
-    <section class="payment section" id="payment">
-        <div class="payment-form">
-            <h2>Payment Details</h2>
-            <form id="payment-form">
-                <div class="form-group">
-                    <label for="card-name">Name on Card</label>
-                    <input type="text" id="card-name" required>
+    <!-- Featured Products -->
+    <section class="featured" id="featured">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="featured-grid">
+            <div class="featured-product animate-scale">
+                <div class="product-image">
+                    <img src="/api/placeholder/400/400" alt="Featured Product 1">
+                    <div class="product-overlay">
+                        <button class="view-details">View Details</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="card-number">Card Number</label>
-                    <input type="text" id="card-number" required>
+                <h3>Premium Collection</h3>
+                <p>Discover our exclusive range</p>
+            </div>
+            <div class="featured-product animate-scale delay-1">
+                <div class="product-image">
+                    <img src="/api/placeholder/400/400" alt="Featured Product 2">
+                    <div class="product-overlay">
+                        <button class="view-details">View Details</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="expiry">Expiry Date</label>
-                    <input type="text" id="expiry" placeholder="MM/YY" required>
+                <h3>New Arrivals</h3>
+                <p>Latest tech accessories</p>
+            </div>
+            <div class="featured-product animate-scale delay-2">
+                <div class="product-image">
+                    <img src="/api/placeholder/400/400" alt="Featured Product 3">
+                    <div class="product-overlay">
+                        <button class="view-details">View Details</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" required>
+                <h3>Best Sellers</h3>
+                <p>Customer favorites</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card animate-fade-in">
+                <img src="/api/placeholder/300/300" alt="Protection">
+                <div class="category-content">
+                    <h3>Protection</h3>
+                    <p>Cases & Screen Guards</p>
+                    <a href="#products" class="category-link">Shop Now →</a>
                 </div>
-                <button type="submit" class="cta-button">Complete Purchase</button>
+            </div>
+            <div class="category-card animate-fade-in delay-1">
+                <img src="/api/placeholder/300/300" alt="Charging">
+                <div class="category-content">
+                    <h3>Charging</h3>
+                    <p>Power Banks & Cables</p>
+                    <a href="#products" class="category-link">Shop Now →</a>
+                </div>
+            </div>
+            <div class="category-card animate-fade-in delay-2">
+                <img src="/api/placeholder/300/300" alt="Accessories">
+                <div class="category-content">
+                    <h3>Accessories</h3>
+                    <p>Stands & Mounts</p>
+                    <a href="#products" class="category-link">Shop Now →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for exclusive offers and latest updates</p>
+            <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
             </form>
         </div>
     </section>
 
-    <script>
-        // Cart management
-        let cart = [];
-        let currentSection = 'hero';
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="filters">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="Protection">Protection</option>
+                <option value="Charging">Charging</option>
+                <option value="Accessories">Accessories</option>
+            </select>
+            <select id="sortSelect">
+                <option value="default">Default Sorting</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name: A to Z</option>
+            </select>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
 
-        // Navigation
-        document.querySelectorAll('[data-section]').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = button.dataset.section;
-                showSection(section);
-            });
-        });
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleCart()">&times;</span>
+            <h2>Your Cart</h2>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">Total: $<span id="cartTotal">0</span></div>
+            <button class="checkout-btn" onclick="handleCheckout()">Proceed to Checkout</button>
+            
+            <!-- Checkout Steps -->
+            <div id="checkoutSteps" style="display: none;">
+                <div class="step-indicators">
+                    <div class="step active">Cart</div>
+                    <div class="step">Details</div>
+                    <div class="step">Payment</div>
+                </div>
+            </div>
 
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-            currentSection = sectionId;
-        }
+            <!-- Payment Form -->
+            <div class="payment-form" id="paymentForm">
+                <h3>Payment Details</h3>
+                <div class="form-group">
+                    <label for="cardName">Name on Card</label>
+                    <input type="text" id="cardName" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Expiry Date</label>
+                    <input type="text" id="expiry" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123">
+                </div>
+                <button class="checkout-btn" onclick="processPayment()">Pay Now</button>
+            </div>
+        </div>
+    </div>
 
-        // Add to cart functionality
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const card = e.target.closest('.product-card');
-                const product = {
-                    name: card.querySelector('h3').textContent,
-                    price: parseFloat(card.querySelector('.product-price').textContent.replace('$', '')),
-                    image: card.querySelector('.product-image').outerHTML
-                };
-                
-                cart.push(product);
-                updateCart();
-                
-                // Show animation
-                button.textContent = 'Added!';
-                setTimeout(() => {
-                    button.textContent = 'Add to Cart';
-                }, 1000);
-            });
-        });
-
-        function updateCart() {
-            const cartCount = document.querySelector('.cart-count');
-            cartCount.textContent = cart.length;
-
-            const cartItems = document.querySelector('.cart-items');
-            cartItems.innerHTML = '';
-
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    ${item.image}
-                    <div>
-                        <h3>${item.name}</h3>
-                        <p>$${item.price.toFixed(2)}</p>
-                    </div>
-                    <button onclick="removeFromCart(${index})" class="remove-item">Remove</button>
-                `;
-                cartItems.appendChild(cartItem);
-            });
-
-            document.querySelector('.cart-total').innerHTML = `
-                Total: $${total.toFixed(2)}
-                <button class="cta-button" data-section="payment">Proceed to Payment</button>
-            `;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        // Payment form handling
-        document.getElementById('payment-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your purchase! This is a demo website.');
-            cart = [];
-            updateCart();
-            showSection('hero');
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
